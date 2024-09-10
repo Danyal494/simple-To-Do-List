@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import { motion } from 'framer-motion';
 const Dolist = () => {
 
     const [tasks, setTasks] = useState(() => {
@@ -53,19 +53,28 @@ setTasks(updatedTasks)
   return (
     <div className='to-do-list bg-slate-700 h-screen '>
         <h1 className='text-center text-white pt-2 font-bold text-xl'>TO-DO-List</h1>
-        <div className='my-8 flex justify-center items-center'>
-            <input className='shadow-lg  border-2 pl-3 rounded-md' type="text" placeholder='Enter a task...'
+        <div className=' input-container '>
+            <input className='input' type="text" placeholder='Enter a task...'
             value={newTask}
             onChange={handleInputChange}/>
-            <button className='add-button bg-blue-600 p-2 rounded-lg text-white  ml-4' onClick={addTask}>
-                Add
-            </button>
+           <button class="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
+border-blue-600
+border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+active:border-b-[2px] active:brightness-90 active:translate-y-[2px]" onClick={addTask}>
+Add
+</button>
         </div>
 
 <ol className='flex justify-evenly items-center flex-wrap '>
     {
         tasks.map((task,index)=>
-            <li key={index} className='shadow-2xl     my-5  p-4 rounded-xl bg-white '>
+            <motion.div initial={{ scale: 0 }}
+        animate={{  scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20
+        }} key={index} className='shadow-2xl     my-5  p-4 rounded-xl bg-white '>
                 <p className='text '>{task}</p>
                 <div className='my-5'>
 
@@ -74,7 +83,7 @@ setTasks(updatedTasks)
                 <button className='move-task-down-buton  bg-blue-500 p-2 rounded-lg font-bold ' onClick={() => moveTaskDown(index)}>👇</button>
                 </div>
 
-            </li>
+            </motion.div>
         )
     }
 </ol>
